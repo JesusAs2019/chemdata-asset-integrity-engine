@@ -15,10 +15,9 @@ An industrial-grade, type-safe asset integrity evaluation engine for upstream an
   * High-temperature protective scale formation
 * **Dynamic Prognostics**: Calculates Net Effective Loss Rate and Remaining Useful Life (RUL) under active chemical inhibitor dosing regimes.
 
----text
-
 ## Project Structure
 
+```text
 chemdata-asset-integrity-engine/
 |-- analytics/
 |   |-- __init__.py
@@ -34,8 +33,7 @@ chemdata-asset-integrity-engine/
 |-- requirements.txt                # Pinned production dependencies
 |-- run_integrity_pipeline.py       # End-to-end self-healing demonstration
 `-- README.md
-
----
+```
 
 ## Technical Specifications & Kinetics
 
