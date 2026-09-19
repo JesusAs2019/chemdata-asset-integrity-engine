@@ -15,7 +15,7 @@ An industrial-grade, type-safe asset integrity evaluation engine for upstream an
   * High-temperature protective scale formation
 * **Dynamic Prognostics**: Calculates Net Effective Loss Rate and Remaining Useful Life (RUL) under active chemical inhibitor dosing regimes.
 
----
+---text
 
 ## Project Structure
 
