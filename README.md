@@ -117,9 +117,16 @@ Remaining Useful Life (RUL):20.34 Years
 ===========================================================================
 
 3. Automated Test Suite
+Run the full PyTest suite to verify edge boundaries and numerical stability:
+pytest -v
 
-Run the full PyTest suite to verify edge boundaries and numerical stability:Bashpytest -v
-All 4 boundary and mathematical verification tests will pass.Standards Alignment MatrixParameter / LayerGoverning StandardImplementation ModuleIngestion & Thickness ThresholdsAPI 570 / ASME B31Gschemas/integrity_contracts.pyInternal CO2 Kineticsde Waard-Lotz / NORSOK M-506analytics/corrosion_kinetics.pyUnit & Integration TestingAutomated verificationtests/test_integrity_contracts.py
+## Standards Alignment Matrix
+====================================================================================
+Parameter/Layer:	Governing Standard	        :Implementation Module
+Parameter/Layer:	API 570/ASME B31G	schemas   : integrity_contracts.py
+Parameter/Layer:	de Waard-Lotz/NORSOK M-506  :  analytics:  corrosion_kinetics.py
+Parameter/Layer:	Automated verification      :tests/test_integrity_contracts.py
+=====================================================================================
 
 ## License
 
