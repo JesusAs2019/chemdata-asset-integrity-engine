@@ -36,14 +36,64 @@ chemdata-asset-integrity-engine/
 |-- run_integrity_pipeline.py       # End-to-end self-healing demonstration
 `-- README.md
 
-Technical Specifications & KineticsThe deterministic baseline degradation rate $V_{corr}$ (mm/year) is modeled via de Waard-Lotz:$$\log_{10}(V_{corr}) = 5.71 - \frac{1119}{T_K} + 0.67 \log_{10}(P_{CO_2}) - F_{pH}$$Where:$T_K$: Pipe operating temperature in Kelvin.$P_{CO_2}$: Partial pressure of $CO_2$ in bar ($P_{system} \times y_{CO_2}$).$F_{pH}$: Empirical pH passivation correction factor when brine $pH > 5.0$.Prognostics FormulationGiven an inhibitor availability/efficiency factor $\eta_{inhib}$, the effective degradation rate and remaining structural life are determined by:$$V_{eff} = V_{corr} \times (1 - \eta_{inhib})$$$$RUL = \frac{t_{measured} - t_{min}}{V_{eff}}$$Quickstart1. Environment InitializationClone and activate a local virtual environment:Bashgit clone [https://github.com/JesusAs2019/chemdata-asset-integrity-engine.git](https://github.com/JesusAs2019/chemdata-asset-integrity-engine.git)
+## Technical Specifications & Kinetics
+
+The deterministic baseline degradation rate V_corr (mm/year) is modeled via the calibrated de Waard-Lotz (1993) relationship:
+
+```text
+log10(V_corr) = 5.71 - (1119 / T_K) + 0.67 * log10(P_CO2) - F_pH
+
+Where:
+
+T_K: Pipe operating temperature in Kelvin (T_C + 273.15).
+
+P_CO2: CO2 partial pressure in bar (P_system * y_CO2).
+
+F_pH: Scale-passivation correction factor applied when in-situ brine pH > 5.0.
+
+Prognostics & Remaining Useful Life (RUL) Formulation
+Accounting for active chemical corrosion inhibitor dosing efficiency (eta_inhib), the net effective metal loss rate and remaining structural life are determined by:
+
+V_eff = V_corr * (1 - eta_inhib)
+
+RUL (years) = (t_measured - t_min) / V_eff
+
+Where:
+
+t_measured: Current ultrasonic wall-thickness measurement (mm).
+
+t_min: Minimum structural allowable limit under API 570 hoop-stress design thresholds (mm).
+
+V_eff: Net effective degradation rate (mm/year).
+
+eta_inhib: Active inhibitor efficiency (e.g., 0.92 for 92% dosing efficiency).
+
+## Quickstart
+
+1. Environment Initialization
+Clone and activate a local virtual environment:
+
+git clone [https://github.com/JesusAs2019/chemdata-asset-integrity-engine.git](https://github.com/JesusAs2019/chemdata-asset-integrity-engine.git)
 cd chemdata-asset-integrity-engine
 python -m venv .venv
-Activate the environment:Windows (PowerShell): .\.venv\Scripts\Activate.ps1Linux / macOS: source .venv/bin/activateInstall dependencies:Bashpip install -r requirements.txt
-2. Run the Integrity PipelineExecute the self-healing demonstration:Bashpython run_integrity_pipeline.py
-Pipeline Execution
 
- Output:Plaintext
+Activate the environment:
+
+Windows (PowerShell): .\.venv\Scripts\Activate.ps1
+
+Linux / macOS: source .venv/bin/activate
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+2. Run the Integrity Pipeline
+
+Execute the self-healing demonstration:
+
+python run_integrity_pipeline.py
+
+## Pipeline Execution Output:
                                                                                   ===========================================================================
   CHEMDATA ASSET INTEGRITY ENGINE | PIPELINE INGESTION & DEGRADATION SUITE
 ===========================================================================
@@ -65,9 +115,13 @@ Baseline Corrosion Rate:    1.844 mm/year
 Net Effective Loss Rate:    0.1475 mm/year (@ 92% Dosing Eff.)
 Remaining Useful Life (RUL):20.34 Years
 ===========================================================================
+
 3. Automated Test Suite
+
 Run the full PyTest suite to verify edge boundaries and numerical stability:Bashpytest -v
 All 4 boundary and mathematical verification tests will pass.Standards Alignment MatrixParameter / LayerGoverning StandardImplementation ModuleIngestion & Thickness ThresholdsAPI 570 / ASME B31Gschemas/integrity_contracts.pyInternal CO2 Kineticsde Waard-Lotz / NORSOK M-506analytics/corrosion_kinetics.pyUnit & Integration TestingAutomated verificationtests/test_integrity_contracts.py
+
+## License
 
 License Distributed under the MIT License.
 Developed and maintained by ChemData AI Solutions.
